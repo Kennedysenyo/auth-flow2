@@ -2,16 +2,18 @@
 
 import Link from "next/link";
 import styles from "./styles/Header.module.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export const Header = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const navOverlay = useRef(null);
   return (
     <header className={`${styles.header}`}>
       <Link className={`${styles.logo}`} href="/">
         KSD
       </Link>
       <nav
+        ref={navOverlay}
         className={`${styles.navOverlay} ${isMobileNavOpen && styles.active}`}
       >
         <ul className={`${styles.navList}`}>

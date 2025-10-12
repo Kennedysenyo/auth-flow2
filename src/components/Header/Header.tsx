@@ -2,11 +2,17 @@
 
 import Link from "next/link";
 import styles from "./styles/Header.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export const Header = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const navOverlay = useRef(null);
+  const navUl = useRef<HTMLUListElement | null>(null);
+
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.target !== navUl.current) {
+      setIsMobileNavOpen((prev) => !prev);
+    }
+  };
 
   return (
     <header className={`${styles.header}`}>
@@ -14,10 +20,10 @@ export const Header = () => {
         KSD
       </Link>
       <nav
-        ref={navOverlay}
+        onClick={handleClick}
         className={`${styles.navOverlay} ${isMobileNavOpen && styles.active}`}
       >
-        <ul className={`${styles.navList}`}>
+        <ul ref={navUl} className={`${styles.navList}`}>
           <li>
             <Link href="/">Home</Link>
           </li>

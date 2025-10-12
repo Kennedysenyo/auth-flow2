@@ -1,4 +1,4 @@
-import { AuthForm } from "@/components/Header/auth/AuthForm/AuthForm";
+import { AuthForm } from "@/components/auth/AuthForm/AuthForm";
 import styles from "./login.module.css";
 
 export default function LoginPage() {

@@ -109,3 +109,9 @@ small {
     color-scheme: dark;
   }
 }
+
+@media screen and (min-width: 768px) {
+  main.main-content {
+    margin-top: 8rem;
+  }
+}

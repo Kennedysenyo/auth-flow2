@@ -1,0 +1,57 @@
+.otpContainer {
+  width: 90%;
+  margin: 0 auto;
+  background-color: var(--background-muted);
+  border-radius: 0.4rem;
+  padding: 2rem 1rem;
+  border: 1px solid var(--color-border);
+}
+
+.otpContainer h2 {
+  text-align: center;
+}
+
+.otpContainer form {
+  margin-top: 1.4rem;
+}
+
+.otpContainer form div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.otpContainer form div label {
+  text-align: center;
+  font-size: var(--fs-base);
+}
+.otpContainer form div input {
+  background-color: var(--background);
+  padding: 1em;
+  border-radius: 0.4em;
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.otpContainer form button {
+  width: 100%;
+  text-align: center;
+  background-color: var(--foreground);
+  color: var(--background);
+  font-size: var(--fs-md);
+  padding: 0.8em;
+  border-radius: 0.4em;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.otpContainer form button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 768px) {
+  .otpContainer {
+    max-width: 600px;
+  }
+}

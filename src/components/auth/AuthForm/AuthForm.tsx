@@ -30,6 +30,7 @@ export const AuthForm = ({ type }: Props) => {
       isLoginPage ? router.replace("/") : router.push("/verify-otp");
     }
   }, [router, isLoginPage, state.success]);
+
   return (
     <div className={`${styles.formContainer}`}>
       <h2>{isLoginPage ? "Login" : "Sign Up"}</h2>
@@ -45,24 +46,30 @@ export const AuthForm = ({ type }: Props) => {
             name="email"
             placeholder="e.g., johndoe@email.com "
           />
-          <small className={`${styles.errorMessage}`}>
-            {state.inputErrors.email}
-          </small>
+          {state.inputErrors.email && (
+            <small className={`${styles.errorMessage}`}>
+              {state.inputErrors.email}
+            </small>
+          )}
         </div>
         <div>
           <label htmlFor="password">Password:</label>
           <input type="password" id="password" name="password" />
-          <small className={`${styles.errorMessage}`}>
-            {state.inputErrors.password}
-          </small>
+          {state.inputErrors.password && (
+            <small className={`${styles.errorMessage}`}>
+              {state.inputErrors.password}
+            </small>
+          )}
         </div>
         {!isLoginPage && (
           <div>
             <label htmlFor="cnfm-password">Confirm Password:</label>
             <input type="password" id="cnfm-password" name="cnfm-password" />
-            <small className={`${styles.errorMessage}`}>
-              {state.inputErrors.cnfmPassword}
-            </small>
+            {state.inputErrors.cnfmPassword && (
+              <small className={`${styles.errorMessage}`}>
+                {state.inputErrors.cnfmPassword}
+              </small>
+            )}
           </div>
         )}
 

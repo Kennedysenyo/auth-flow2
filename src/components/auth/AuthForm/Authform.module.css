@@ -30,6 +30,10 @@
   font-size: var(--fs-base);
 }
 
+.form div small:not(:nth-child(2)) {
+  color: #ff0000;
+}
+
 .submitBtn {
   margin-top: 1rem;
   background-color: var(--foreground);

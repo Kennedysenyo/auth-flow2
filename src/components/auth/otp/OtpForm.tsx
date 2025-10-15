@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import styles from "./opt-form.module.css";
 import { OTPFormState, validateOTPForm } from "@/actions/auth/validateOPT";
 import { useRouter } from "next/navigation";
@@ -11,9 +11,33 @@ type Props = {
 };
 
 export const OtpForm = ({ email, signupToken }: Props) => {
+  const [isResending, setIsResending] = useState<boolean>(false);
+  const [resendErrorMessage, setResendErrorMessage] = useState<string | null>(
+    null
+  );
   const router = useRouter();
   const otpType = signupToken ? "signup" : "recovery";
 
+  /** Handle OTP code resend */
+  const handleResend = async () => {
+    try {
+      const res = await fetch("/api/resend-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, signupToken }),
+      });
+
+      const data = res.json();
+      if (!data) throw new Error("Failed to resend OTP");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setResendErrorMessage(error.message);
+      }
+      setResendErrorMessage(error as string);
+    }
+  };
   const initialState: OTPFormState = {
     errors: {},
     success: false,
@@ -51,6 +75,11 @@ export const OtpForm = ({ email, signupToken }: Props) => {
         </div>
         <button>{isPending ? "..." : "Verify"}</button>
       </form>
+
+      <div>
+        <p>Didn't get code? </p>
+        <button onClick={handleResend}>Resend</button>
+      </div>
     </div>
   );
 };

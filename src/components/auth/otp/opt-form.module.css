@@ -11,7 +11,7 @@
   text-align: center;
 }
 
-.otpContainer form {
+.otpContainer form div inputform {
   margin-top: 1.4rem;
 }
 
@@ -52,6 +52,25 @@
 
 .otpContainer form button:hover {
   opacity: 0.8;
+}
+
+.otpContainer > div {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
+}
+
+.otpContainer > div button {
+  padding: 0.8em 1.2em;
+  border-radius: 0.4em;
+  cursor: pointer;
+  background-color: var(--background);
+  transition: background-color 0.2s ease;
+}
+.otpContainer > div button:hover {
+  background-color: var(--color-border);
 }
 
 @media screen and (min-width: 768px) {

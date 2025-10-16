@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const OtpForm = ({ email, signupToken }: Props) => {
-  const [isResending, setIsResending] = useState<boolean>(false);
+  const [isResendingOTP, setIsResendingOTP] = useState<boolean>(false);
   const [resendErrorMessage, setResendErrorMessage] = useState<string | null>(
     null
   );
@@ -21,12 +21,13 @@ export const OtpForm = ({ email, signupToken }: Props) => {
   /** Handle OTP code resend */
   const handleResend = async () => {
     try {
+      setIsResendingOTP(true);
       const res = await fetch("/api/resend-otp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, signupToken }),
+        body: JSON.stringify({ email, token: signupToken, type: otpType }),
       });
 
       const data = res.json();
@@ -36,6 +37,8 @@ export const OtpForm = ({ email, signupToken }: Props) => {
         setResendErrorMessage(error.message);
       }
       setResendErrorMessage(error as string);
+    } finally {
+      setIsResendingOTP(false);
     }
   };
   const initialState: OTPFormState = {

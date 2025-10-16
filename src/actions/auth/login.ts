@@ -1,6 +1,7 @@
+"use server";
+
 import { createClient } from "@/auth/server";
 import { handleError } from "@/utils/handle-errors";
-import { handleClientScriptLoad } from "next/script";
 
 export const loginAction = async (
   email: string,

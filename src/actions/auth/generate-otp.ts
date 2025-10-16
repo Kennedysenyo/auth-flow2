@@ -1,3 +1,5 @@
+"use server";
+
 import { createAdminClient } from "@/auth/server";
 import { handleError } from "@/utils/handle-errors";
 

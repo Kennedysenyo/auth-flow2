@@ -4,6 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 import styles from "./opt-form.module.css";
 import { OTPFormState, validateOTPForm } from "@/actions/auth/validateOPT";
 import { useRouter } from "next/navigation";
+import { Spinner } from "@/components/spinner/spinner";
 
 type Props = {
   email: string;
@@ -30,7 +31,12 @@ export const OtpForm = ({ email, signupToken }: Props) => {
         body: JSON.stringify({ email, token: signupToken, type: otpType }),
       });
 
+      if (!res.ok) {
+        const error = await res.json();
+        setResendErrorMessage(error.error.message);
+      }
       const data = res.json();
+
       if (!data) throw new Error("Failed to resend OTP");
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -48,9 +54,11 @@ export const OtpForm = ({ email, signupToken }: Props) => {
   };
 
   const [state, formAction, isPending] = useActionState(
-    validateOTPForm.bind(null, { email, signupToken }),
+    validateOTPForm.bind(null, { email, type: otpType }),
     initialState
   );
+
+  useEffect(() => {}, [isResendingOTP]);
 
   useEffect(() => {
     if (initialState.success) {
@@ -66,8 +74,12 @@ export const OtpForm = ({ email, signupToken }: Props) => {
     <div className={`${styles.otpContainer}`}>
       <h2>Verify OTP code</h2>
       <form action={formAction}>
+        {state.errorMessage && <p>{state.errorMessage}</p>}
+        {resendErrorMessage && <p>{resendErrorMessage}</p>}
         <div>
-          <label>OTP has been sent to your email</label>
+          {(!state.errorMessage || !resendErrorMessage) && (
+            <label>OTP has been sent to your email</label>
+          )}
           <input
             type="text"
             name="otp"
@@ -81,7 +93,9 @@ export const OtpForm = ({ email, signupToken }: Props) => {
 
       <div>
         <p>Didn't get code? </p>
-        <button onClick={handleResend}>Resend</button>
+        <button onClick={handleResend}>
+          {isResendingOTP ? <Spinner /> : "Resend"}
+        </button>
       </div>
     </div>
   );

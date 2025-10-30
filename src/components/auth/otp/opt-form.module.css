@@ -9,6 +9,7 @@
 
 .otpContainer h2 {
   text-align: center;
+  margin-bottom: 1rem;
 }
 
 .otpContainer form div inputform {
@@ -63,10 +64,12 @@
 }
 
 .otpContainer > div button {
+  flex: 0, 0, 50px;
   padding: 0.8em 1.2em;
   border-radius: 0.4em;
   cursor: pointer;
   background-color: var(--background);
+  /* background-color: red; */
   transition: background-color 0.2s ease;
 }
 .otpContainer > div button:hover {

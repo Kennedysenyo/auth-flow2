@@ -74,10 +74,14 @@ export const OtpForm = ({ email, signupToken }: Props) => {
     <div className={`${styles.otpContainer}`}>
       <h2>Verify OTP code</h2>
       <form action={formAction}>
-        {state.errorMessage && <p>{state.errorMessage}</p>}
-        {resendErrorMessage && <p>{resendErrorMessage}</p>}
+        {state.errorMessage && (
+          <p className={styles.errorMessage}>{state.errorMessage}</p>
+        )}
+        {resendErrorMessage && (
+          <p className={styles.errorMessage}>{resendErrorMessage}</p>
+        )}
         <div>
-          {(!state.errorMessage || !resendErrorMessage) && (
+          {(!state.errorMessage || resendErrorMessage) && (
             <label>OTP has been sent to your email</label>
           )}
           <input
@@ -85,6 +89,7 @@ export const OtpForm = ({ email, signupToken }: Props) => {
             name="otp"
             id="otp"
             placeholder="Enter OTP here "
+            autoComplete="off"
           />
           {state.errors.otp && <small>{state.errors.otp}</small>}
         </div>
